@@ -1,34 +1,34 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL;
+console.log("API_URL", API_URL);
 
-export const saveInvoice = async (payload) =>
-{
+export const saveInvoice = async (payload) => {
     try {
-        return await axios.post( `${API_URL}/invoice` , payload);
         
-    } catch (error) {
-        console.log("Error:",error.message);     
-        return error.message;   
-    }
-}
+        return await axios.post(`${API_URL}/invoice`, payload);
 
-export const getAllInvoices = async() => {
-    try {
-        return await axios.get(`${API_URL}/invoices`);
     } catch (error) {
-        console.log("Error:",error.message);
+        console.log("Error:", error.message);
         return error.message;
     }
 }
-export const deleteInvoice = async (id) =>
-{
+
+export const getAllInvoices = async () => {
     try {
-        return await axios.delete( `${API_URL}/invoice/${id}`);
-        return await axios.delete( `${API_URL}/invoice`);
-        
+        return await axios.get(`${API_URL}/invoices`);
     } catch (error) {
-        console.log("Error:",error.message);     
-        return error.message;   
+        console.log("Error:", error.message);
+        return error.message;
+    }
+}
+export const deleteInvoice = async (id) => {
+    try {
+        return await axios.delete(`${API_URL}/invoice/${id}`);
+        return await axios.delete(`${API_URL}/invoice`);
+
+    } catch (error) {
+        console.log("Error:", error.message);
+        return error.message;
     }
 }

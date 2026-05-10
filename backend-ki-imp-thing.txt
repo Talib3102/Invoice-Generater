@@ -1,0 +1,69 @@
+$env:SPRING_APPLICATION_NAME=""
+$env:SPRING_DATASOURCE_URL=""
+
+
+$env:DATASOURCE_URL="jdbc:mysql:///invoiceprocessingsystem"
+$env:DATASOURCE_USER="root"
+$env:DATASOURCE_PASSWORD="Talib@3202"
+$env:FRONTEND_URL="http://localhost:5173"
+
+command
+./mvnw package
+
+
+before start with 
+docker login
+
+
+first ye command to create image 
+ docker build -t demo-deployment .
+
+
+second use this command
+docker tag demo-deployment talib3102(Docker account name)/demo-deployment(image name):latest
+
+third to push repo to docker account
+docker push talib3102/demo-deployment:latest
+
+
+TIDB cloud ka password h ye
+3bheAxB79Pc7Usg1
+
+this is cluster url
+jdbc:mysql://2c8arbKPPFv7j5n.root:3bheAxB79Pc7Usg1@gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/sys?sslMode=VERIFY_IDENTITY
+
+
+
+
+response from gemini
+
+Environment Variable Key	Value
+SPRING_DATASOURCE_URL	jdbc:mysql://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/sys?sslMode=VERIFY_IDENTITY
+SPRING_DATASOURCE_USERNAME	2c8arbKPPFv7j5n.root
+SPRING_DATASOURCE_PASSWORD	3bheAxB79Pc7Usg1
+SPRING_JPA_HIBERNATE_DDL_AUTO	update
+from where did you get these things
+
+
+I extracted those values directly from the connection string you provided, and the "Keys" are standard rules used by Spring Boot.
+
+Here is exactly how I got them:
+
+1. Where I got the Values:
+I looked at the URL you pasted: jdbc:mysql://2c8arbKPPFv7j5n.root:3bheAxB79Pc7Usg1@gateway01.ap-southeast-1.prod.aws.tidbcloud.com...
+
+The part before the colon (2c8arbKPPFv7j5n.root) is your Username.
+The part after the colon and before the @ (3bheAxB79Pc7Usg1) is your Password.
+The rest is your JDBC Host URL.
+2. Where I got the Keys (Names):
+In Spring Boot, any property in your application.properties can be set as an Environment Variable by following these rules:
+
+Change to UPPERCASE.
+Replace dots (.) with underscores (_).
+Property in Code	Environment Variable Name
+spring.datasource.url	SPRING_DATASOURCE_URL
+spring.datasource.username	SPRING_DATASOURCE_USERNAME
+spring.datasource.password	SPRING_DATASOURCE_PASSWORD
+Why use these? By using these names on Render, you don't have to touch your code at all. Spring Boot will automatically "see" these variables and use them to connect to your TiDB cluster!
+
+12:41 AM
